@@ -2,14 +2,15 @@ package com.demo.todo.service;
 
 import com.demo.todo.model.Todo;
 import com.demo.todo.repository.TodoRepository;
+import com.demo.todo.service.dto.TaskDTO;
 import com.demo.todo.service.dto.TodoDTO;
 import com.demo.todo.service.mapper.TodoMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +19,15 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest(properties = "spring.config.location=classpath:application-test.properties")
+@SpringBootTest
 class TodoServiceTest {
-    @Mock
+    @MockBean
     private TodoRepository todoRepository;
 
-    @Mock
+    @MockBean
     private TodoMapper todoMapper;
 
-    @InjectMocks
+    @Autowired
     private TodoService todoService;
 
     @BeforeEach
@@ -152,9 +153,14 @@ class TodoServiceTest {
         // Arrange
         Long todoId = 1L;
 
+        TaskDTO task1 = new TaskDTO();
+        task1.setName("Task 1");
+        task1.setName("Task Description 1");
+
         TodoDTO updatedTodoDTO = new TodoDTO();
         updatedTodoDTO.setName("Updated Todo");
         updatedTodoDTO.setDescription("Updated Description");
+        updatedTodoDTO.setTasks(List.of(task1));
 
         Todo todo = new Todo();
         todo.setId(todoId);
