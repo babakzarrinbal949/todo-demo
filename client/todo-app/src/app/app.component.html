@@ -1,0 +1,7 @@
+<h1>Todo App</h1>
+<app-todo-form></app-todo-form>
+<button (click)="getAllTodos()">Get Todos</button>
+<div *ngFor="let todo of todos">
+  <h3>{{ todo.name }}</h3>
+  <p>{{ todo.description }}</p>
+</div>
